@@ -1,0 +1,17 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-18.04]
+        include:
+          - os: ubuntu-18.04
+            container: swift:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run test
+      run: swift test --enable-test-discovery
